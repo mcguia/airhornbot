@@ -174,12 +174,36 @@ var COW *SoundCollection = &SoundCollection{
 	},
 }
 
+var DOUBLELIFT *SoundCollection = &SoundCollection{
+	Prefix: "lol",
+	Commands: []string{
+		"!doublelift",
+		"!dl",
+	},
+	Sounds: []*Sound{
+		createSound("doublelift", 1000, 250),
+	},
+}
+
+var PENTA *SoundCollection = &SoundCollection{
+	Prefix: "lol",
+	Commands: []string{
+		"!penta",
+		"!pentakirr",
+	},
+	Sounds: []*Sound{
+		createSound("pentakirr", 1000, 250),
+	},
+}
+
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
 	KHALED,
 	CENA,
 	ETHAN,
 	COW,
+	DOUBLELIFT,
+	PENTA,
 }
 
 // Create a Sound struct
