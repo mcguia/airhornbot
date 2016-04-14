@@ -12,7 +12,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
+	b64 "encoding/base64"
+	"bufio"
 	log "github.com/Sirupsen/logrus"
 	"github.com/bwmarrin/discordgo"
 	"github.com/layeh/gopus"
@@ -761,6 +762,32 @@ func main() {
 	// We're running!
 	log.Info("AIRHORNBOT is ready to horn it up.")
 
+	/*
+	imgFile, err := os.Open("spongerobot.png")
+
+	if err != nil {
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Fatal("Image open error")
+		return
+	}
+
+	defer imgFile.Close()
+	fInfo, _ := imgFile.Stat()
+	var size int64 = fInfo.Size()
+	buf := make([]byte, size)
+	fReader := bufio.NewReader(imgFile)
+	fReader.Read(buf)
+
+	sEnc := b64.StdEncoding.EncodeToString(buf)
+	_,err = discord.UserUpdate("username","password","NOISE BOT", "data:image/png;base64," + sEnc, "")
+	if err != nil {
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Fatal("oops")
+		return
+	}
+	*/
 
 	// Wait for a signal to quit
 	c := make(chan os.Signal, 1)
