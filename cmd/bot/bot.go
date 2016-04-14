@@ -92,19 +92,7 @@ var AIRHORN *SoundCollection = &SoundCollection{
 	},
 	Sounds: []*Sound{
 		createSound("default", 1000, 250),
-		createSound("reverb", 800, 250),
-		createSound("spam", 800, 0),
-		createSound("tripletap", 800, 250),
 		createSound("fourtap", 800, 250),
-		createSound("distant", 500, 250),
-		createSound("echo", 500, 250),
-		createSound("clownfull", 250, 250),
-		createSound("clownshort", 250, 250),
-		createSound("clownspam", 250, 0),
-		createSound("highfartlong", 200, 250),
-		createSound("highfartshort", 200, 250),
-		createSound("midshort", 100, 250),
-		createSound("truck", 10, 250),
 	},
 }
 
@@ -118,23 +106,6 @@ var KHALED *SoundCollection = &SoundCollection{
 	Sounds: []*Sound{
 		createSound("one", 1, 250),
 		createSound("one_classic", 1, 250),
-		createSound("one_echo", 1, 250),
-	},
-}
-
-var CENA *SoundCollection = &SoundCollection{
-	Prefix: "jc",
-	Commands: []string{
-		"!johncena",
-		"!cena",
-	},
-	Sounds: []*Sound{
-		createSound("airhorn", 1, 250),
-		createSound("echo", 1, 250),
-		createSound("full", 1, 250),
-		createSound("jc", 1, 250),
-		createSound("nameis", 1, 250),
-		createSound("spam", 1, 250),
 	},
 }
 
@@ -143,34 +114,9 @@ var ETHAN *SoundCollection = &SoundCollection{
 	Commands: []string{
 		"!ethan",
 		"!eb",
-		"!ethanbradberry",
-		"!h3h3",
 	},
 	Sounds: []*Sound{
-		createSound("areyou_classic", 100, 250),
-		createSound("areyou_condensed", 100, 250),
-		createSound("areyou_crazy", 100, 250),
-		createSound("areyou_ethan", 100, 250),
 		createSound("classic", 100, 250),
-		createSound("echo", 100, 250),
-		createSound("high", 100, 250),
-		createSound("slowandlow", 100, 250),
-		createSound("cuts", 30, 250),
-		createSound("beat", 30, 250),
-		createSound("sodiepop", 1, 250),
-	},
-}
-
-var COW *SoundCollection = &SoundCollection{
-	Prefix: "cow",
-	Commands: []string{
-		"!stan",
-		"!stanislav",
-	},
-	Sounds: []*Sound{
-		createSound("herd", 10, 250),
-		createSound("moo", 10, 250),
-		createSound("x3", 1, 250),
 	},
 }
 
@@ -181,7 +127,7 @@ var DOUBLELIFT *SoundCollection = &SoundCollection{
 		"!dl",
 	},
 	Sounds: []*Sound{
-		createSound("doublelift", 1000, 250),
+		createSound("doublelift", 100, 250),
 	},
 }
 
@@ -196,14 +142,116 @@ var PENTA *SoundCollection = &SoundCollection{
 	},
 }
 
+var WOW *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!wow",
+	},
+	Sounds: []*Sound{
+		createSound("wow", 100, 250),
+		createSound("waow", 100, 250),
+	},
+}
+
+var OHBABY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!triple",
+	},
+	Sounds: []*Sound{
+		createSound("triple", 100, 250),
+	},
+}
+
+var NOICE *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!noice",
+		"!nice",
+	},
+	Sounds: []*Sound{
+		createSound("noice", 100, 250),
+	},
+}
+
+var NEVER *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!tobi",
+		"!never",
+	},
+	Sounds: []*Sound{
+		createSound("never", 100, 250),
+	},
+}
+
+var CHOCO *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!chocolate",
+		"!choco",
+	},
+	Sounds: []*Sound{
+		createSound("chocolate", 100, 250),
+	},
+}
+
+var PROFANITY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!profanity",
+	},
+	Sounds: []*Sound{
+		createSound("profanity", 100, 250),
+	},
+}
+
+var CRY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!cry",
+	},
+	Sounds: []*Sound{
+		createSound("cry", 100, 250),
+	},
+}
+
+var LOL *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!lol",
+	},
+	Sounds: []*Sound{
+		createSound("hot", 100, 250),
+	},
+}
+
+var ONLYGAME *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!mad",
+		"!game",
+	},
+	Sounds: []*Sound{
+		createSound("onlygame", 100, 250),
+	},
+}
+
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
 	KHALED,
-	CENA,
 	ETHAN,
-	COW,
 	DOUBLELIFT,
 	PENTA,
+	WOW,
+	OHBABY,
+	NOICE,
+	NEVER,
+	CHOCO,
+	PROFANITY,
+	CRY,
+	LOL,
+	ONLYGAME,
 }
 
 // Create a Sound struct
@@ -468,7 +516,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 	// Sleep for a specified amount of time before playing the sound
 	time.Sleep(time.Millisecond * 32)
-
+	_ = "breakpoint"
 	// Play the sound
 	play.Sound.Play(vc)
 
@@ -493,7 +541,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Info("Recieved READY payload")
-	s.UpdateStatus(0, "airhornbot.com")
+	s.UpdateStatus(0, "AAAAAAAAAAA")
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
@@ -506,8 +554,10 @@ func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 	}
 
 	for _, channel := range event.Guild.Channels {
+
+
 		if channel.ID == event.Guild.ID {
-			s.ChannelMessageSend(channel.ID, "**AIRHORN BOT READY FOR HORNING. TYPE `!AIRHORN` WHILE IN A VOICE CHANNEL TO ACTIVATE**")
+			s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
 			return
 		}
 	}
@@ -617,6 +667,13 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// If it's not relevant to our shard, just exit
 	if !shardContains(guild.ID) {
 		return
+	}	
+
+	if parts[0] == "!help" || parts[0] == "!commands" || parts[0] == "!h" {
+		help := "`List of commands:`\n\n" +
+		"`!airhorn !airhorn default !airhorn fourtap !anotha one !anotha one_classic !ethan !dl !penta !wow wow !wow waow !triple !noice !tobi !choco !profanity !cry !lol !game`"
+		s.ChannelMessageSend(channel.ID, help)
+		return
 	}
 
 	// Find the collection for the command we got
@@ -716,6 +773,7 @@ func main() {
 
 	// We're running!
 	log.Info("AIRHORNBOT is ready to horn it up.")
+
 
 	// Wait for a signal to quit
 	c := make(chan os.Signal, 1)
