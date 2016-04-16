@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	b64 "encoding/base64"
-	"bufio"
+	//b64 "encoding/base64"
+	//"bufio"
 	log "github.com/Sirupsen/logrus"
 	"github.com/bwmarrin/discordgo"
 	"github.com/layeh/gopus"
@@ -234,6 +234,25 @@ var ONLYGAME *SoundCollection = &SoundCollection{
 	},
 }
 
+var SHEEIT *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!sheeit",
+		"!sheeeit",
+		"!sheeeeit",
+		"!sheeeeeit",
+		"!sheeeeeeit",
+		"!sheeeeeeeit",
+		"!sheeeeeeeeit",
+		"!sheeeeeeeeeit",
+
+	},
+	Sounds: []*Sound{
+		createSound("sheeit", 100, 250),
+	},
+}
+
+
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
 	KHALED,
@@ -249,6 +268,7 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	CRY,
 	LOL,
 	ONLYGAME,
+	SHEEIT,
 }
 
 // Create a Sound struct
