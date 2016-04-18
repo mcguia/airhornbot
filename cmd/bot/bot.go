@@ -1,6 +1,7 @@
 package main
 
 import (
+        "regexp"
 	"encoding/binary"
 	"flag"
 	"fmt"
@@ -103,6 +104,17 @@ var KHALED *SoundCollection = &SoundCollection{
 	Sounds: []*Sound{
 		createSound("one", 1, 250),
 		createSound("one_classic", 1, 250),
+	},
+}
+
+var TSM *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!TSM",
+		"!bestteam",
+	},
+	Sounds: []*Sound{
+		createSound("TSM", 1, 250),
 	},
 }
 
@@ -237,14 +249,6 @@ var ONLYGAME *SoundCollection = &SoundCollection{
 var SHEEIT *SoundCollection = &SoundCollection{
 	Prefix: "misc",
 	Commands: []string{
-		"!sheeit",
-		"!sheeeit",
-		"!sheeeeit",
-		"!sheeeeeit",
-		"!sheeeeeeit",
-		"!sheeeeeeeit",
-		"!sheeeeeeeeit",
-		"!sheeeeeeeeeit",
 
 	},
 	Sounds: []*Sound{
@@ -269,6 +273,7 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	LOL,
 	ONLYGAME,
 	SHEEIT,
+        TSM,
 }
 
 // Create a Sound struct
@@ -686,7 +691,8 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	// Find the collection for the command we got
 	for _, coll := range COLLECTIONS {
-		if scontains(parts[0], coll.Commands...) {
+	                match,_:regexp.MatchString("she(e+)it", parts[0])
+                        if scontains(parts[0], coll.Commands...)||match==true{	
 
 			// If they passed a specific sound effect, find and select that (otherwise play nothing)
 			var sound *Sound
