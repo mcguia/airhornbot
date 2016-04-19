@@ -118,6 +118,38 @@ var TSM *SoundCollection = &SoundCollection{
 	},
 }
 
+var OHGOD *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!ohmygod",
+		"!omg",
+	},
+	Sounds: []*Sound{
+		createSound("ohgod", 1, 250),
+	},
+}
+
+var CHERRY *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!rero",
+		"!cherry",
+	},
+	Sounds: []*Sound{
+		createSound("cherry", 1, 250),
+	},
+}
+
+var HELLO *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!hello",
+	},
+	Sounds: []*Sound{
+		createSound("hello", 1, 250),
+	},
+}
+
 var ETHAN *SoundCollection = &SoundCollection{
 	Prefix: "ethan",
 	Commands: []string{
@@ -273,7 +305,10 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	LOL,
 	ONLYGAME,
 	SHEEIT,
-        TSM,
+    TSM,
+    OHGOD,
+    HELLO,
+    CHERRY,
 }
 
 // Create a Sound struct
@@ -691,8 +726,8 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	// Find the collection for the command we got
 	for _, coll := range COLLECTIONS {
-	                match,_:regexp.MatchString("she(e+)it", parts[0])
-                        if scontains(parts[0], coll.Commands...)||match==true{	
+	                match,_:=regexp.MatchString("she(e+)it", parts[0])
+                        if scontains(parts[0], coll.Commands...)||(coll.Sounds[0].Name=="sheeit"&&match==true){	
 
 			// If they passed a specific sound effect, find and select that (otherwise play nothing)
 			var sound *Sound
