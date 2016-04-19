@@ -554,7 +554,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Info("Recieved READY payload")
-	s.UpdateStatus(0, "AAAAAAAAAAA")
+	//s.UpdateStatus(0, "AAAAAAAAAAA")
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
@@ -570,7 +570,7 @@ func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 
 		if channel.ID == event.Guild.ID {
-			//s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
+			s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
 			return
 		}
 	}
