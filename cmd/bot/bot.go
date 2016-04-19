@@ -1,7 +1,11 @@
 package main
 
 import (
+<<<<<<< HEAD
         "regexp"
+=======
+	"bytes"
+>>>>>>> upstream/master
 	"encoding/binary"
 	"flag"
 	"fmt"
@@ -10,13 +14,18 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"runtime"
 	"strconv"
 	"strings"
+	"text/tabwriter"
 	"time"
+	"regexp"
+
 	//b64 "encoding/base64"
 	//"bufio"
 	log "github.com/Sirupsen/logrus"
 	"github.com/bwmarrin/discordgo"
+	"github.com/dustin/go-humanize"
 	"github.com/layeh/gopus"
 	redis "gopkg.in/redis.v3"
 )
@@ -281,13 +290,98 @@ var ONLYGAME *SoundCollection = &SoundCollection{
 var SHEEIT *SoundCollection = &SoundCollection{
 	Prefix: "misc",
 	Commands: []string{
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 	},
 	Sounds: []*Sound{
 		createSound("sheeit", 100, 250),
 	},
 }
 
+var NOICE *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!noice",
+		"!nice",
+	},
+	Sounds: []*Sound{
+		createSound("noice", 100, 250),
+	},
+}
+
+var NEVER *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!tobi",
+		"!never",
+	},
+	Sounds: []*Sound{
+		createSound("never", 100, 250),
+	},
+}
+
+var CHOCO *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!chocolate",
+		"!choco",
+	},
+	Sounds: []*Sound{
+		createSound("chocolate", 100, 250),
+	},
+}
+
+var PROFANITY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!profanity",
+	},
+	Sounds: []*Sound{
+		createSound("profanity", 100, 250),
+	},
+}
+
+var CRY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!cry",
+	},
+	Sounds: []*Sound{
+		createSound("cry", 100, 250),
+	},
+}
+
+var LOL *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!lol",
+	},
+	Sounds: []*Sound{
+		createSound("hot", 100, 250),
+	},
+}
+
+var ONLYGAME *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!mad",
+		"!game",
+	},
+	Sounds: []*Sound{
+		createSound("onlygame", 100, 250),
+	},
+}
+
+var SHEEIT *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+	},
+	Sounds: []*Sound{
+		createSound("sheeit", 100, 250),
+	},
+}
 
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
@@ -598,7 +692,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Info("Recieved READY payload")
-	//s.UpdateStatus(0, "AAAAAAAAAAA")
+	s.UpdateStatus(0, "AAAAAAAAAAA")
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
@@ -614,7 +708,7 @@ func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 
 		if channel.ID == event.Guild.ID {
-			s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
+			//s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
 			return
 		}
 	}
@@ -637,19 +731,38 @@ func calculateAirhornsPerSecond(cid string) {
 	discord.ChannelMessageSend(cid, fmt.Sprintf("Current APS: %v", (float64(latest-current))/10.0))
 }
 
+func displayBotStats(cid string) {
+	stats := runtime.MemStats{}
+	runtime.ReadMemStats(&stats)
+
+	users := 0
+	for _, guild := range discord.State.Ready.Guilds {
+		users += len(guild.Members)
+	}
+
+	w := &tabwriter.Writer{}
+	buf := &bytes.Buffer{}
+
+	w.Init(buf, 0, 4, 0, ' ', 0)
+	fmt.Fprintf(w, "```\n")
+	fmt.Fprintf(w, "Discordgo: \t%s\n", discordgo.VERSION)
+	fmt.Fprintf(w, "Go: \t%s\n", runtime.Version())
+	fmt.Fprintf(w, "Memory: \t%s / %s (%s total allocated)\n", humanize.Bytes(stats.Alloc), humanize.Bytes(stats.Sys), humanize.Bytes(stats.TotalAlloc))
+	fmt.Fprintf(w, "Tasks: \t%d\n", runtime.NumGoroutine())
+	fmt.Fprintf(w, "Servers: \t%d\n", len(discord.State.Ready.Guilds))
+	fmt.Fprintf(w, "Users: \t%d\n", users)
+	fmt.Fprintf(w, "Shards: \t%s\n", strings.Join(SHARDS, ", "))
+	fmt.Fprintf(w, "```\n")
+	w.Flush()
+	discord.ChannelMessageSend(cid, buf.String())
+}
+
 // Handles bot operator messages, should be refactored (lmao)
 func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, parts []string, g *discordgo.Guild) {
 	ourShard := shardContains(g.ID)
-	if scontains(parts[len(parts)-1], "stats") && ourShard {
-		users := 0
-		for _, guild := range s.State.Ready.Guilds {
-			users += len(guild.Members)
-		}
 
-		s.ChannelMessageSend(m.ChannelID, fmt.Sprintf(
-			"I'm in %v servers with %v users.",
-			len(s.State.Ready.Guilds),
-			users))
+	if scontains(parts[len(parts)-1], "stats") && ourShard {
+		displayBotStats(m.ChannelID)
 	} else if scontains(parts[len(parts)-1], "status") {
 		guilds := 0
 		for _, guild := range s.State.Ready.Guilds {
@@ -661,19 +774,9 @@ func handleBotControlMessages(s *discordgo.Session, m *discordgo.MessageCreate, 
 			"Shard %v contains %v servers",
 			strings.Join(SHARDS, ","),
 			guilds))
-	} else if len(parts) >= 3 && scontains(parts[len(parts)-2], "die") {
-		shard := parts[len(parts)-1]
-		if len(SHARDS) == 0 || scontains(shard, SHARDS...) {
-			log.Info("Got DIE request, exiting...")
-			s.ChannelMessageSend(m.ChannelID, ":ok_hand: goodbye cruel world")
-			os.Exit(0)
-		}
 	} else if scontains(parts[len(parts)-1], "aps") && ourShard {
 		s.ChannelMessageSend(m.ChannelID, ":ok_hand: give me a sec m8")
 		go calculateAirhornsPerSecond(m.ChannelID)
-	} else if scontains(parts[len(parts)-1], "where") && ourShard {
-		s.ChannelMessageSend(m.ChannelID,
-			fmt.Sprintf("its a me, shard %v", string(g.ID[len(g.ID)-5])))
 	}
 	return
 }
@@ -724,10 +827,15 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
+	match, _ := regexp.MatchString("she(e+)it", parts[0])
 	// Find the collection for the command we got
 	for _, coll := range COLLECTIONS {
+<<<<<<< HEAD
 	                match,_:=regexp.MatchString("she(e+)it", parts[0])
                         if scontains(parts[0], coll.Commands...)||(coll.Sounds[0].Name=="sheeit"&&match==true){	
+=======
+		if scontains(parts[0], coll.Commands...) || (coll.Sounds[0].Name == "SHEEIT" && match == true) {
+>>>>>>> upstream/master
 
 			// If they passed a specific sound effect, find and select that (otherwise play nothing)
 			var sound *Sound
