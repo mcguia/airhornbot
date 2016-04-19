@@ -15,10 +15,8 @@ import (
 	"strings"
 	"text/tabwriter"
 	"time"
-<<<<<<< HEAD
 	"regexp"
-=======
->>>>>>> b587ad7c6ab2e15a37f8636e9e6bb574c3385641
+
 	//b64 "encoding/base64"
 	//"bufio"
 	log "github.com/Sirupsen/logrus"
@@ -165,7 +163,6 @@ var OHBABY *SoundCollection = &SoundCollection{
 	},
 	Sounds: []*Sound{
 		createSound("triple", 100, 250),
-<<<<<<< HEAD
 	},
 }
 
@@ -252,10 +249,6 @@ var SHEEIT *SoundCollection = &SoundCollection{
 	},
 }
 
-=======
-	},
-}
-
 var NOICE *SoundCollection = &SoundCollection{
 	Prefix: "misc",
 	Commands: []string{
@@ -333,22 +326,11 @@ var ONLYGAME *SoundCollection = &SoundCollection{
 var SHEEIT *SoundCollection = &SoundCollection{
 	Prefix: "misc",
 	Commands: []string{
-		"!sheeit",
-		"!sheeeit",
-		"!sheeeeit",
-		"!sheeeeeit",
-		"!sheeeeeeit",
-		"!sheeeeeeeit",
-		"!sheeeeeeeeit",
-		"!sheeeeeeeeeit",
-
 	},
 	Sounds: []*Sound{
 		createSound("sheeit", 100, 250),
 	},
 }
-
->>>>>>> b587ad7c6ab2e15a37f8636e9e6bb574c3385641
 
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
@@ -655,7 +637,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Info("Recieved READY payload")
-	//s.UpdateStatus(0, "AAAAAAAAAAA")
+	s.UpdateStatus(0, "AAAAAAAAAAA")
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
@@ -671,7 +653,7 @@ func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 
 		if channel.ID == event.Guild.ID {
-			s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
+			//s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
 			return
 		}
 	}
