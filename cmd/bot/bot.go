@@ -15,7 +15,10 @@ import (
 	"strings"
 	"text/tabwriter"
 	"time"
+<<<<<<< HEAD
 	"regexp"
+=======
+>>>>>>> b587ad7c6ab2e15a37f8636e9e6bb574c3385641
 	//b64 "encoding/base64"
 	//"bufio"
 	log "github.com/Sirupsen/logrus"
@@ -162,6 +165,7 @@ var OHBABY *SoundCollection = &SoundCollection{
 	},
 	Sounds: []*Sound{
 		createSound("triple", 100, 250),
+<<<<<<< HEAD
 	},
 }
 
@@ -248,6 +252,103 @@ var SHEEIT *SoundCollection = &SoundCollection{
 	},
 }
 
+=======
+	},
+}
+
+var NOICE *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!noice",
+		"!nice",
+	},
+	Sounds: []*Sound{
+		createSound("noice", 100, 250),
+	},
+}
+
+var NEVER *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!tobi",
+		"!never",
+	},
+	Sounds: []*Sound{
+		createSound("never", 100, 250),
+	},
+}
+
+var CHOCO *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!chocolate",
+		"!choco",
+	},
+	Sounds: []*Sound{
+		createSound("chocolate", 100, 250),
+	},
+}
+
+var PROFANITY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!profanity",
+	},
+	Sounds: []*Sound{
+		createSound("profanity", 100, 250),
+	},
+}
+
+var CRY *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!cry",
+	},
+	Sounds: []*Sound{
+		createSound("cry", 100, 250),
+	},
+}
+
+var LOL *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!lol",
+	},
+	Sounds: []*Sound{
+		createSound("hot", 100, 250),
+	},
+}
+
+var ONLYGAME *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!mad",
+		"!game",
+	},
+	Sounds: []*Sound{
+		createSound("onlygame", 100, 250),
+	},
+}
+
+var SHEEIT *SoundCollection = &SoundCollection{
+	Prefix: "misc",
+	Commands: []string{
+		"!sheeit",
+		"!sheeeit",
+		"!sheeeeit",
+		"!sheeeeeit",
+		"!sheeeeeeit",
+		"!sheeeeeeeit",
+		"!sheeeeeeeeit",
+		"!sheeeeeeeeeit",
+
+	},
+	Sounds: []*Sound{
+		createSound("sheeit", 100, 250),
+	},
+}
+
+>>>>>>> b587ad7c6ab2e15a37f8636e9e6bb574c3385641
 
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
 	AIRHORN,
