@@ -15,6 +15,7 @@ import (
 	"strings"
 	"text/tabwriter"
 	"time"
+	"regexp"
 	//b64 "encoding/base64"
 	//"bufio"
 	log "github.com/Sirupsen/logrus"
@@ -241,15 +242,6 @@ var ONLYGAME *SoundCollection = &SoundCollection{
 var SHEEIT *SoundCollection = &SoundCollection{
 	Prefix: "misc",
 	Commands: []string{
-		"!sheeit",
-		"!sheeeit",
-		"!sheeeeit",
-		"!sheeeeeit",
-		"!sheeeeeeit",
-		"!sheeeeeeeit",
-		"!sheeeeeeeeit",
-		"!sheeeeeeeeeit",
-
 	},
 	Sounds: []*Sound{
 		createSound("sheeit", 100, 250),
@@ -562,7 +554,7 @@ func playSound(play *Play, vc *discordgo.VoiceConnection) (err error) {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Info("Recieved READY payload")
-	//s.UpdateStatus(0, "AAAAAAAAAAA")
+	s.UpdateStatus(0, "AAAAAAAAAAA")
 }
 
 func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
@@ -578,7 +570,7 @@ func onGuildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 
 		if channel.ID == event.Guild.ID {
-			s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
+			//s.ChannelMessageSend(channel.ID, "**AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA**")
 			return
 		}
 	}
@@ -697,9 +689,10 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
+	match, _ := regexp.MatchString("she(e+)it", parts[0])
 	// Find the collection for the command we got
 	for _, coll := range COLLECTIONS {
-		if scontains(parts[0], coll.Commands...) {
+		if scontains(parts[0], coll.Commands...) || (coll.Sounds[0].Name == "SHEEIT" && match == true) {
 
 			// If they passed a specific sound effect, find and select that (otherwise play nothing)
 			var sound *Sound
