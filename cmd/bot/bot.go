@@ -1,11 +1,8 @@
 package main
 
 import (
-<<<<<<< HEAD
-        "regexp"
-=======
+    "regexp"
 	"bytes"
->>>>>>> upstream/master
 	"encoding/binary"
 	"flag"
 	"fmt"
@@ -19,7 +16,6 @@ import (
 	"strings"
 	"text/tabwriter"
 	"time"
-	"regexp"
 
 	//b64 "encoding/base64"
 	//"bufio"
@@ -127,6 +123,72 @@ var TSM *SoundCollection = &SoundCollection{
 	},
 }
 
+var BELIEVE *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!believe",
+		"!cantbelieve",
+		"!cb",
+	},
+	Sounds: []*Sound{
+		createSound("cantbelieve", 1, 250),
+	},
+}
+
+var HOW *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!how",
+		"!happentome",
+	},
+	Sounds: []*Sound{
+		createSound("howcouldthis", 1, 250),
+	},
+}
+
+var FRICK *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!frick",
+	},
+	Sounds: []*Sound{
+		createSound("frick", 1, 250),
+	},
+}
+
+var WHEN *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!whenwillyoulearn",
+		"!wwyl",
+	},
+	Sounds: []*Sound{
+		createSound("whenwilllearn", 1, 250),
+	},
+}
+
+var EVENNOW *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!evennow",
+		"!even",
+	},
+	Sounds: []*Sound{
+		createSound("evennow", 1, 250),
+	},
+}
+
+var DOIT *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!doit",
+		"!justdoit",
+	},
+	Sounds: []*Sound{
+		createSound("justdoit", 1, 250),
+	},
+}
+
 var OHGOD *SoundCollection = &SoundCollection{
 	Prefix:    "TSM",
 	Commands: []string{
@@ -156,6 +218,16 @@ var HELLO *SoundCollection = &SoundCollection{
 	},
 	Sounds: []*Sound{
 		createSound("hello", 1, 250),
+	},
+}
+
+var FUCKEDUP *SoundCollection = &SoundCollection{
+	Prefix:    "TSM",
+	Commands: []string{
+		"!fuckedup",
+	},
+	Sounds: []*Sound{
+		createSound("fuckedup", 1, 250),
 	},
 }
 
@@ -290,100 +362,16 @@ var ONLYGAME *SoundCollection = &SoundCollection{
 var SHEEIT *SoundCollection = &SoundCollection{
 	Prefix: "misc",
 	Commands: []string{
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 	},
 	Sounds: []*Sound{
 		createSound("sheeit", 100, 250),
 	},
 }
 
-var NOICE *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!noice",
-		"!nice",
-	},
-	Sounds: []*Sound{
-		createSound("noice", 100, 250),
-	},
-}
 
-var NEVER *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!tobi",
-		"!never",
-	},
-	Sounds: []*Sound{
-		createSound("never", 100, 250),
-	},
-}
-
-var CHOCO *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!chocolate",
-		"!choco",
-	},
-	Sounds: []*Sound{
-		createSound("chocolate", 100, 250),
-	},
-}
-
-var PROFANITY *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!profanity",
-	},
-	Sounds: []*Sound{
-		createSound("profanity", 100, 250),
-	},
-}
-
-var CRY *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!cry",
-	},
-	Sounds: []*Sound{
-		createSound("cry", 100, 250),
-	},
-}
-
-var LOL *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!lol",
-	},
-	Sounds: []*Sound{
-		createSound("hot", 100, 250),
-	},
-}
-
-var ONLYGAME *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-		"!mad",
-		"!game",
-	},
-	Sounds: []*Sound{
-		createSound("onlygame", 100, 250),
-	},
-}
-
-var SHEEIT *SoundCollection = &SoundCollection{
-	Prefix: "misc",
-	Commands: []string{
-	},
-	Sounds: []*Sound{
-		createSound("sheeit", 100, 250),
-	},
-}
 
 var COLLECTIONS []*SoundCollection = []*SoundCollection{
+	FUCKEDUP,
 	AIRHORN,
 	KHALED,
 	ETHAN,
@@ -403,6 +391,12 @@ var COLLECTIONS []*SoundCollection = []*SoundCollection{
     OHGOD,
     HELLO,
     CHERRY,
+	BELIEVE,
+	DOIT,
+	HOW,
+	FRICK,
+	WHEN,
+	EVENNOW,
 }
 
 // Create a Sound struct
@@ -822,20 +816,16 @@ func onMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if parts[0] == "!help" || parts[0] == "!commands" || parts[0] == "!h" {
 		help := "`List of commands:`\n\n" +
-		"`!airhorn !airhorn default !airhorn fourtap !anotha one !anotha one_classic !ethan !dl !penta !wow wow !wow waow !triple !noice !tobi !choco !profanity !cry !lol !game`"
+		"`!airhorn !airhorn default !airhorn fourtap !anotha one !anotha one_classic !ethan !dl !penta !wow wow !wow waow !triple !noice !tobi !choco !profanity !cry !lol !game !doit !wwyl !evennow !cantbelieve !rero !omg !fuckedup !game !how `"
 		s.ChannelMessageSend(channel.ID, help)
 		return
 	}
 
-	match, _ := regexp.MatchString("she(e+)it", parts[0])
 	// Find the collection for the command we got
 	for _, coll := range COLLECTIONS {
-<<<<<<< HEAD
 	                match,_:=regexp.MatchString("she(e+)it", parts[0])
-                        if scontains(parts[0], coll.Commands...)||(coll.Sounds[0].Name=="sheeit"&&match==true){	
-=======
+                       
 		if scontains(parts[0], coll.Commands...) || (coll.Sounds[0].Name == "SHEEIT" && match == true) {
->>>>>>> upstream/master
 
 			// If they passed a specific sound effect, find and select that (otherwise play nothing)
 			var sound *Sound
